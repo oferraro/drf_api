@@ -1,5 +1,5 @@
 from rest_framework import generics
-
+from rest_framework.exceptions import ParseError
 from .models import User
 from .serializers import UserSerializer
 from django.utils.decorators import method_decorator
@@ -15,6 +15,10 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+@method_decorator(csrf_exempt, name='balance')
+def UserBalance(request):
+    return HttpResponse(json.dumps({"test": "data"}), content_type="application/json")
 
 @method_decorator(csrf_exempt, name='user')
 def AddUser(request):
