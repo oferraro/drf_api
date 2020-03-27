@@ -14,4 +14,4 @@ EXPOSE 8080
 
 # CMD ["ping", "google.com"]
 
-CMD ["/usr/local/bin/python", "/drf_src/blogapi/manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["/usr/local/bin/python", "/drf_src/belvoapi/manage.py", "runserver", "0.0.0.0:8080"]

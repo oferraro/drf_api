@@ -8,14 +8,46 @@ docker-compose build
 # Run docker instance
 docker-compose up
 
+# Access to the docker instance to admin the system
+docker exec -it belvo-http bash
+
+# Go to the api folder
+cd belvoapi
+
+# Run migrations
+python manage.py makemigrations
+python manage.py migrate
+
+# Create super user (password used 1234567890)
+python manage.py createsuperuser --email admin@example.com --username admin
+
 # Browse http://localhost:8080/admin
 
+# Test de api with Postman or curl
+url: http://localhost:8080/api/transactions/add
+method: post
+body (json)
+{
+	"reference": "test3",
+	"account": "test1",
+	"date": "2030-12-10 12:22",
+	"amount": 34.1,
+	"type": "test1",
+	"category": "test1",
+	"user_id": 3
+}
 
-# docker-compose has mariadb (just to let it ready for the next step)
+# --------------------------- #
+
 # For testing purposes 0.0.0.0 is allowed and passwords are simple
 # CSRF token was excepted for routes csrf_exempt
 
-# TODO: check user age range and use date instead of integers
+# TODO (pending, I would like to improve):
+# check user age range and use date instead of integers
+# change project name from blog_project to a better choice
+
+# --------------------------- #
+# Some useful commands
 
 # Build the docker container
 docker-compose build
@@ -29,23 +61,15 @@ docker-compose stop
 # Access to the docker container
 docker exec -it belvo-http bash
 
-# ------ Not sure if these are necessary
 
-# Run the migrations
-python manage.py migrate
-
-# Create super user (password used 1234567890)
-python manage.py createsuperuser --email admin@example.com --username admin
-
-# didn't executed yet
-python manage.py makemigrations
-python manage.py migrate
-
+# --------------------------- #
 # How I have create the project (create config dir, create "api" app dir)
 django-admin startproject config .
 django-admin startapp api
 
-# ------ Steps I did to create the API and users app (similar with transactions)
+
+# --------------------------- #
+# Steps I did to create the API and users app (similar with transactions)
 
 # Create a folder for the project
 mkdir belvo && cd belvo
